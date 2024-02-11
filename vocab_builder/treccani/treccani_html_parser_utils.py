@@ -24,6 +24,12 @@ def _find_strong_or_em(element: Tag) -> bool:
     return element.name in ["strong", "em"]
 
 
+def _definition_paragraph_filter(class_name) -> bool:
+    return class_name and class_name.startswith(
+        "MuiTypography-root MuiTypography-bodyL"
+    )
+
+
 def _simplify(element: Tag) -> str:
     """
     Remove custom 'strong' and 'em' classes and replace them with bold text and
@@ -48,11 +54,19 @@ def _extract_definition_text(html_text: str) -> str:
         return "No definition found"
 
     soup = BeautifulSoup(html_text, "html.parser")
-    definition_objects = soup.find_all(_find_strong_or_em)
+    # Find the paragraph containing word definition
+    definition_par = soup.find_all("p", class_=_definition_paragraph_filter)[1]
+    # Select objects that define additional formatting
+    highlights = definition_par.find_all(_find_strong_or_em)
+
+    # Select the starting text of the paragraph, before the first highlight
+    raw_definition_text = definition_par.text
+    first_element_text = highlights[0].text
+    first_text_index = raw_definition_text.find(first_element_text)
+    result_text = raw_definition_text[:first_text_index]
 
     # Extract the text content between the selected elements
-    result_text = ""
-    for element in definition_objects:
+    for element in highlights:
         result_text += _simplify(element)
         text_between = element.nextSibling.text.strip()
         # Break lines when new paragraph is detected for more readability
