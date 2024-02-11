@@ -26,7 +26,7 @@ class PonsTranslation:
         # If only one word is provided (e.g. it's an additional context, like
         # 'chiedere (per sapere)', span it over two columns and make it bold
         if self.target is None:
-            return f'<tr><th colspan="2"><b>{self.target}</b></th></tr>'
+            return f'<tr><th colspan="2"><i>{self.source}</i></th></tr>'
 
         # Otherwise display the source phrase in one column and the translation
         # in another column
