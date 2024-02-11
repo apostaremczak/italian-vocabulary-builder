@@ -4,6 +4,8 @@ A combined interface for Treccani, PONS, Reverso and Coniugazione.it. Translate
 a word, get its definition and exemplary
 sentences in one call.
 
+![Screenshot of the main page](main_page.png)
+
 ### Motivation 👩🏻‍🎓
 
 When studying Italian and learning new vocabulary, for each word, I find myself
@@ -20,6 +22,8 @@ without manually visiting multiple websites.
 
 > **This app is intended only for personal, private use.**
 
+![Screenshot of the results page](results_page.png)
+
 ## Sources
 
 ### [Treccani](https://www.treccani.it/)
@@ -27,7 +31,7 @@ without manually visiting multiple websites.
 This interface uses two functions from Treccani:
 
 * [Vocabolario](https://www.treccani.it/vocabolario/)
-* [Sinonimi](https://www.treccani.it/sinonimi/)
+* (to be added) [Sinonimi](https://www.treccani.it/sinonimi/)
 
 ### [Reverso](https://context.reverso.net/)
 
@@ -35,26 +39,6 @@ This interface uses two functions from Treccani:
 > often leads to having your IP address
 > temporarily banned.
 > Use with caution.
-
-### [Coniugazione.it](https://www.coniugazione.it/)
-
-In this interface, the following conjugations are displayed:
-
-* Indicativo presente
-* Passato prossimo
-* Imperfetto
-* Passato remoto
-* Futuro semplice
-* Condizionale presente
-* Congiuntivo presente
-* Congiuntivo imperfetto
-* Imperativo
-* Gerundio
-
-All the remaining conjugations (trapassato prossimo, trapassato remoto,
-condizionale passato, etc.) can be extrapolated
-from the past participle from passato prossimo and some auxiliary verb, so I
-decided to skip them here to save some screen space.
 
 ### [PONS](https://en.pons.com/)
 
@@ -82,6 +66,15 @@ dictionaries [here](https://api.pons.com/v1/dictionaries?language=en).
 The free YouGlish plan allows up to 20 requests per day using this widget.
 Once this quota is exceeded, you can either purchase the premium plan
 or used the generated link to visit YouGlish in a new private/incognito tab.
+
+### [Coniugazione.it](https://www.coniugazione.it/)
+
+Coniugazione.it is used to provide conjugation tables (for verbs only).
+
+### [Forvo](https://forvo.com/)
+
+The results page contains a link to Forvo, so you can look up recordings with
+the correct pronunciation of searched words.
 
 ## Running the app
 
