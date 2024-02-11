@@ -45,7 +45,9 @@ async def get_results(word):
         logging.info("Serving results for '%s' from cache", word)
         return word_cache[word]
 
-    pons_client = PonsApiClient(credentials.pons_api_secret, translation_config)
+    pons_client = PonsApiClient(
+        credentials.pons_api_secret, translation_config
+    )
     translation = await pons_client.fetch_data(word)
 
     coniugazione_client = ConiugazioneClient()
@@ -85,4 +87,5 @@ async def search(word: str):
         pons_result=results.translation,
         treccani_result=results.definition,
         conjugation=results.conjugation,
+        skip_youglish_preview=1 if app.debug else 0,
     )

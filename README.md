@@ -99,3 +99,14 @@ flask run
 > `(...)`
 >
 > `* Running on http://127.0.0.1:5000`
+
+#### Debug mode
+
+When running the app in debug mode with
+
+```bash
+flask run --debug
+```
+
+YouGlish widget will not be displayed in order
+to save the free daily quota.
