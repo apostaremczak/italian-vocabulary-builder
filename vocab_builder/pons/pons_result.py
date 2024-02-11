@@ -79,9 +79,7 @@ class PonsApiResult(ApiResult):
         ]
 
     def to_html(self) -> str:
-        meanings_html = "\n".join(
-            [meaning.to_html() for meaning in self.meanings]
-        )
+        meanings_html = "\n".join([meaning.to_html() for meaning in self.meanings])
         return meanings_html
 
 

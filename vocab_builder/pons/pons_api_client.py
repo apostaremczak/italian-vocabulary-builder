@@ -1,6 +1,7 @@
 """
 Client class for retrieving results from pons.com
 """
+
 import logging
 from dataclasses import dataclass
 
@@ -15,6 +16,7 @@ from vocab_builder.translation_config import TranslationConfig
 @dataclass
 class PonsApiClient(ApiClient):
     """Client class for retrieving results from pons.com"""
+
     PONS_API_URL = "https://api.pons.com/v1/dictionary"
     INPUT_LANGUAGE = "it"
 
