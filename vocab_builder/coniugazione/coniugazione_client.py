@@ -26,7 +26,7 @@ class ConiugazioneClient(ApiClient):
         :return: ConiugazioneResult with parsed conjugation results
         """
         soup = BeautifulSoup(source_html, "html.parser")
-        tenses = soup.find_all("div", class_="tempstab")
+        tenses = soup.find_all("div", class_="tempscorps")
         tenses = [str(t) for t in tenses]
         return ConiugazioneResult(tenses)
 
