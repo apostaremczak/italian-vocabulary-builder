@@ -26,25 +26,21 @@ class PonsMeaning:
     def to_html(self) -> str:
         table_header = f'<tr><th colspan="2">{self.headword}</th></tr>'
         rows = "\n".join([tr.to_html() for tr in self.translations])
-        return f'''
+        return f"""
         <div class="pons-meaning">
         <table>{table_header}\n{rows}</table>
         </div>
-        '''
+        """
 
 
 class PonsApiResult(ApiResult):
     def __init__(self, entries: list[dict]):
         self.meanings: list[PonsMeaning] = [
-            _parse_single_result(entry) for
-            entry in entries
+            _parse_single_result(entry) for entry in entries
         ]
 
     def to_html(self) -> str:
-        meanings_html = "\n".join([
-            meaning.to_html()
-            for meaning in self.meanings
-        ])
+        meanings_html = "\n".join([meaning.to_html() for meaning in self.meanings])
         return meanings_html
 
 
@@ -62,8 +58,7 @@ def _parse_single_result(result: dict) -> PonsMeaning:
         for translation in arab["translations"]:
             translations.append(
                 PonsTranslation(
-                    source=translation["source"],
-                    target=translation["target"]
+                    source=translation["source"], target=translation["target"]
                 )
             )
     logging.debug(translations)
@@ -72,14 +67,13 @@ def _parse_single_result(result: dict) -> PonsMeaning:
 
 def _parse_api_response(json_response) -> ApiResult:
     try:
-        hits = json_response[0]['hits']
+        hits = json_response[0]["hits"]
         entries = [r for r in hits if r["type"] == "entry"]
         logging.debug(entries)
         pons_api_result = PonsApiResult(entries)
     except (IndexError, KeyError):
         logging.warning(
-            f"JSON returned by PONS was different "
-            f"than expected\n {json_response}"
+            f"JSON returned by PONS was different " f"than expected\n {json_response}"
         )
         return EmptyApiResult()
     return pons_api_result

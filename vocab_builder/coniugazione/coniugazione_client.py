@@ -28,8 +28,9 @@ class ConiugazioneClient(ApiClient):
         return self.parse_html(source_html)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import asyncio
+
     client = ConiugazioneClient()
     res = asyncio.run(client.fetch_data("essere"))
     print(res.to_html())

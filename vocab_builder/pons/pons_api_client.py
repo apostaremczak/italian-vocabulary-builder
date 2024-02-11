@@ -23,20 +23,12 @@ class PonsApiClient(ApiClient):
         )
 
     async def fetch_data(self, word: str) -> PonsApiResult:
-        params = {
-            'l': self.dictionary_code,
-            'q': word,
-            'in': self.input_language
-        }
-        headers = {
-            'X-Secret': self.secret
-        }
+        params = {"l": self.dictionary_code, "q": word, "in": self.input_language}
+        headers = {"X-Secret": self.secret}
 
         async with aiohttp.ClientSession() as session:
             async with session.get(
-                    url=self.url,
-                    params=params,
-                    headers=headers
+                url=self.url, params=params, headers=headers
             ) as response:
                 if response.status != 200:
                     # TODO: Translate to the fallback language

@@ -13,7 +13,4 @@ class TranslationConfig:
 
 # TODO: Change this accordingly to your target language
 def get_translation_config() -> TranslationConfig:
-    return TranslationConfig(
-        main_target_language="pl",
-        fallback_language="en"
-    )
+    return TranslationConfig(main_target_language="pl", fallback_language="en")

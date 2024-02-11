@@ -50,30 +50,30 @@ async def get_results(word):
     result = SearchResults(
         translation=translation.to_html(),
         definition=definition.to_html(),
-        conjugation=conjugation.to_html()
+        conjugation=conjugation.to_html(),
     )
     word_cache[word] = result
     return result
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route("/", methods=["GET", "POST"])
 def index():
-    if request.method == 'POST':
-        search_word = request.form['search_word']
-        return redirect(url_for('search', word=search_word))
-    return render_template('index.html')
+    if request.method == "POST":
+        search_word = request.form["search_word"]
+        return redirect(url_for("search", word=search_word))
+    return render_template("index.html")
 
 
-@app.route('/search/<word>')
+@app.route("/search/<word>")
 async def search(word: str):
     # Perform asynchronous API calls to fetch results
     results = await get_results(word)
 
     # Render the template with the extracted results
     return render_template(
-        'search_results.html',
+        "search_results.html",
         word=word,
         pons_result=results.translation,
         treccani_result=results.definition,
-        conjugation=results.conjugation
+        conjugation=results.conjugation,
     )

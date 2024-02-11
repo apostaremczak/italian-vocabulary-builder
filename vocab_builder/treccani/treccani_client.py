@@ -18,8 +18,10 @@ class TreccaniClient(ApiClient):
             word_url = f"{self.vocab_url}/{word}"
             async with session.get(word_url) as response:
                 if not response.ok:
-                    logging.warning(f"Invalid response from Treccani with "
-                                    f"code {response.status}")
+                    logging.warning(
+                        f"Invalid response from Treccani with "
+                        f"code {response.status}"
+                    )
                     return TreccaniResult("")
                 source_html = await response.text()
         return TreccaniResult(source_html)
