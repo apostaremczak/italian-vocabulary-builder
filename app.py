@@ -41,7 +41,7 @@ async def get_results(word):
     Either retrieve the definitions and translations from cache,
     or connect to outside providers for retrieving this information
     """
-    if word in word_cache:
+    if not app.debug and word in word_cache:
         logging.info("Serving results for '%s' from cache", word)
         return word_cache[word]
 

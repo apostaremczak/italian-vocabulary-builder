@@ -108,5 +108,8 @@ When running the app in debug mode with
 flask run --debug
 ```
 
-YouGlish widget will not be displayed in order
-to save the free daily quota.
+some functionalities might change, such as:
+
+* YouGlish widget will not be displayed in order
+  to save the free daily quota,
+* results will not be cached.
