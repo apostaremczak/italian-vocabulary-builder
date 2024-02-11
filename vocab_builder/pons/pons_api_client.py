@@ -1,13 +1,20 @@
-import aiohttp
+"""
+Client class for retrieving results from pons.com
+"""
 import logging
+from dataclasses import dataclass
+
+import aiohttp
 
 from vocab_builder.api_client import ApiClient
-from vocab_builder.api_result import EmptyApiResult
-from vocab_builder.pons.pons_result import PonsApiResult, _parse_api_response
+from vocab_builder.api_result import EmptyApiResult, ApiResult
+from vocab_builder.pons.pons_result import _parse_api_response
 from vocab_builder.translation_config import TranslationConfig
 
 
+@dataclass
 class PonsApiClient(ApiClient):
+    """Client class for retrieving results from pons.com"""
     PONS_API_URL = "https://api.pons.com/v1/dictionary"
     INPUT_LANGUAGE = "it"
 
@@ -22,8 +29,12 @@ class PonsApiClient(ApiClient):
             sorted(["it", self.fallback_target_language])
         )
 
-    async def fetch_data(self, word: str) -> PonsApiResult:
-        params = {"l": self.dictionary_code, "q": word, "in": self.input_language}
+    async def fetch_data(self, word: str) -> ApiResult:
+        params = {
+            "l": self.dictionary_code,
+            "q": word,
+            "in": self.input_language,
+        }
         headers = {"X-Secret": self.secret}
 
         async with aiohttp.ClientSession() as session:
@@ -32,7 +43,7 @@ class PonsApiClient(ApiClient):
             ) as response:
                 if response.status != 200:
                     # TODO: Translate to the fallback language
-                    logging.warning(f"PONS response code {response.status}")
+                    logging.warning("PONS response code %s", response.status)
                     return EmptyApiResult()
                 response_json = await response.json()
         return _parse_api_response(response_json)

@@ -1,10 +1,11 @@
-import aiohttp
-import asyncio
+"""
+Main Flask app file
+"""
+
 import logging
 from dataclasses import dataclass
 from flask import Flask, render_template, redirect, url_for, request
 
-from vocab_builder.api_client import ApiClient
 from vocab_builder.app_config import parse_config_from_credentials
 from vocab_builder.coniugazione.coniugazione_client import ConiugazioneClient
 from vocab_builder.pons.pons_api_client import PonsApiClient
@@ -24,6 +25,8 @@ logging.basicConfig(level=logging.DEBUG)
 
 @dataclass
 class SearchResults:
+    """Container for results to be displayed"""
+
     translation: str
     definition: str
     conjugation: str
@@ -34,11 +37,17 @@ word_cache: dict[str, SearchResults] = {}
 
 
 async def get_results(word):
+    """
+    Either retrieve the definitions and translations from cache,
+    or connect to outside providers for retrieving this information
+    """
     if word in word_cache:
-        logging.info(f"Serving results for '{word}' from cache")
+        logging.info("Serving results for '%s' from cache", word)
         return word_cache[word]
 
-    pons_client = PonsApiClient(credentials.pons_api_secret, translation_config)
+    pons_client = PonsApiClient(
+        credentials.pons_api_secret, translation_config
+    )
     translation = await pons_client.fetch_data(word)
 
     coniugazione_client = ConiugazioneClient()
@@ -58,6 +67,7 @@ async def get_results(word):
 
 @app.route("/", methods=["GET", "POST"])
 def index():
+    """Main route of the app, displays only the search bar and nothing else"""
     if request.method == "POST":
         search_word = request.form["search_word"]
         return redirect(url_for("search", word=search_word))
@@ -66,6 +76,7 @@ def index():
 
 @app.route("/search/<word>")
 async def search(word: str):
+    """Route with the results page for a particular word"""
     # Perform asynchronous API calls to fetch results
     results = await get_results(word)
 

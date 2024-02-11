@@ -1,3 +1,7 @@
+"""
+Client class for retrieving results from https://www.coniugazione.it/
+"""
+
 import aiohttp
 from bs4 import BeautifulSoup
 
@@ -6,6 +10,10 @@ from vocab_builder.coniugazione.coniugazione_result import ConiugazioneResult
 
 
 class ConiugazioneClient(ApiClient):
+    """
+    Client class for retrieving results from https://www.coniugazione.it/
+    """
+
     CONIUGAZIONE_URL = "https://www.coniugazione.it/verbo"
 
     def __init__(self):
@@ -13,6 +21,10 @@ class ConiugazioneClient(ApiClient):
 
     @staticmethod
     def parse_html(source_html: str) -> ConiugazioneResult:
+        """
+        :param source_html: Raw HTML returned by coniugazione.it
+        :return: ConiugazioneResult with parsed conjugation results
+        """
         soup = BeautifulSoup(source_html, "html.parser")
         tenses = soup.find_all("div", class_="tempstab")
         tenses = [str(t) for t in tenses]
@@ -26,11 +38,3 @@ class ConiugazioneClient(ApiClient):
                     return ConiugazioneResult([])
                 source_html = await response.text()
         return self.parse_html(source_html)
-
-
-if __name__ == "__main__":
-    import asyncio
-
-    client = ConiugazioneClient()
-    res = asyncio.run(client.fetch_data("essere"))
-    print(res.to_html())

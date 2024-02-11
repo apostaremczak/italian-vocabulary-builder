@@ -1,4 +1,10 @@
+"""
+Container class for definitions (and potentially synonyms) from treccani.it
+"""
+
 import re
+from dataclasses import dataclass
+
 from bs4 import BeautifulSoup
 from bs4.element import Tag
 from vocab_builder.api_result import ApiResult
@@ -15,15 +21,14 @@ def _find_strong_em(element: Tag) -> bool:
 
 
 def _simplify(element: Tag) -> str:
-    text = element.text
+    text = str(element.text)
     if element.name == "strong":
         is_another_meaning = len(re.findall(r"[0-9a-z]\. ", text)) > 0
-        # TODO: Add new line/sectior for easier reading
+        # TODO: Add new line/section for easier reading
         if is_another_meaning:
-            f"\n<b>{text}</b> "
+            return f"\n<b>{text}</b> "
         return f" <b>{text}</b> "
-    if element.name == "em":
-        return text
+    return text
 
 
 def _extract_treccani_definition(html_text: str):
@@ -42,7 +47,10 @@ def _extract_treccani_definition(html_text: str):
     return _remove_repeated_spaces(result_text)
 
 
+@dataclass
 class TreccaniResult(ApiResult):
+    """Data holder for results from Treccani.it"""
+
     def __init__(self, html_text: str):
         self.definition = _extract_treccani_definition(html_text)
 
