@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocab builder</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Italian vocabulary builder</h1>
+        <form method="post" action="{{ url_for('index') }}">
+            <label for="search_word">Enter a word:</label>
+            <input type="text" name="search_word" id="search_word" required>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+</body>
+</html>

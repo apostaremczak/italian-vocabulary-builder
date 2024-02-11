@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocab builder: {{ word }}</title>
+    <style>
+        body {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .results-container {
+            display: flex;
+            justify-content: space-around;
+            width: 90%;  /* Adjust the width as needed */
+            margin-top: 20px;
+        }
+
+        .result-column {
+            flex-basis: 65%;  /* Adjust the column width as needed */
+        }
+
+        .pronunciation-result-column {
+            flex-basis: 25%;  /* Adjust the column width as needed */
+        }
+
+        .conjugation-column {
+            width: 48%; /* Adjust the width as needed */
+            float: left;
+            margin-right: 2%; /* Adjust the margin between columns as needed */
+        }
+
+        .tempstab {
+            border: 1px solid #ccc; /* Optional: Add a border for better visibility */
+            margin-bottom: 10px; /* Adjust the margin between elements as needed */
+            padding: 10px;
+        }
+
+        .pronunciation-link {
+            margin-bottom: 10px; /* Adjust the margin between elements as needed */
+            justify-content: space-around;
+        }
+
+    </style>
+</head>
+<body>
+<h2>Search for a new word</h2>
+<!-- Search Form -->
+<form method="post" action="{{ url_for('index') }}">
+    <label for="search_word">Enter a word in Italian:</label>
+    <input type="text" name="search_word" id="search_word" required>
+    <button type="submit">Search</button>
+</form>
+
+<h1>Results for '{{ word }}'</h1>
+
+<!-- Results Container with Two Columns -->
+<div class="results-container">
+    <!-- First column with translations and definitions-->
+    <div class="result-column">
+        <h2>Translation</h2>
+        {{ pons_result|safe }}
+
+        <h2>Definition</h2>
+        {{ treccani_result|safe }}
+
+        <h2>Conjugation</h2>
+        {{ conjugation|safe }}
+    </div>
+
+    <!-- Second column with pronunciation tips -->
+    <div class="pronunciation-result-column">
+        <h2>Pronunciation</h2>
+
+        <div class="pronunciation-link">
+            <div class="pronunciation-link">
+                <!-- Forvo lin -->
+                <a href="https://forvo.com/word/{{ word }}/#it"
+                   target="_blank">
+                    "{{ word }}" in Forvo
+                </a>
+            </div>
+            <div class="pronunciation-link">
+                <!-- YouGlish link -->
+                <a href="https://youglish.com/pronounce/{{ word }}/italian"
+                   target="_blank">
+                    "{{ word }}" in YouGlish
+                </a>
+            </div>
+        </div>
+        <div>
+
+            <!-- YouGlish -->
+            <a id="yg-widget-0" class="youglish-widget" data-query="{{ word }}"
+               data-lang="italian" data-components="8415" data-auto-start="0"
+               data-bkg-color="theme_light" data-delay-load="0" rel="nofollow"
+               href="https://youglish.com">Visit YouGlish.com</a>
+            <script async src="https://youglish.com/public/emb/widget.js"
+                    charset="utf-8"></script>
+        </div>
+    </div>
+</div>
+</body>
+</html>
