@@ -75,15 +75,19 @@ class PonsApiResult(ApiResult):
 
     def __init__(self, entries: list[dict]):
         self.meanings: list[PonsMeaning] = [
-            _parse_single_result(entry) for entry in entries
+            meaning
+            for entry in entries
+            for meaning in _parse_single_result(entry)
         ]
 
     def to_html(self) -> str:
-        meanings_html = "\n".join([meaning.to_html() for meaning in self.meanings])
+        meanings_html = "<br>".join(
+            [meaning.to_html() for meaning in self.meanings]
+        )
         return meanings_html
 
 
-def _parse_single_result(result: dict) -> PonsMeaning:
+def _parse_single_result(result: dict) -> list[PonsMeaning]:
     """
     Example of a single result, from
     https://en.pons.com/translate/italian-english/chiedere
@@ -105,23 +109,25 @@ def _parse_single_result(result: dict) -> PonsMeaning:
         chiedere un favore a qu             to ask sb a favor
         chiedere la mano di una ragazza     to ask for a girl's hand
     """
-    roms = result["roms"]
-    if len(roms) > 1:
-        logging.warning("PONS returned multiple roms in %s", roms)
-    rom = roms[0]
-    headword = rom["headword_full"]
-    translations = []
-    for arab in rom["arabs"]:
-        header = arab["header"]
-        if header:
-            translations.append(PonsTranslation(source=header))
-        for translation in arab["translations"]:
-            translations.append(
-                PonsTranslation(
-                    source=translation["source"], target=translation["target"]
+    meanings = []
+    for rom in result["roms"]:
+        headword = rom["headword_full"]
+        translations = []
+        for arab in rom["arabs"]:
+            header = arab["header"]
+            if header:
+                translations.append(PonsTranslation(source=header))
+            for translation in arab["translations"]:
+                translations.append(
+                    PonsTranslation(
+                        source=translation["source"],
+                        target=translation["target"],
+                    )
                 )
-            )
-    return PonsMeaning(headword=headword, translations=translations)
+        meanings.append(
+            PonsMeaning(headword=headword, translations=translations)
+        )
+    return meanings
 
 
 def _parse_api_response(json_response) -> ApiResult:
