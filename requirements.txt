@@ -3,4 +3,4 @@ beautifulsoup4==4.12.3
 git+https://github.com/paulorssalves/reverso_context_api
 flask[async]==3.0.2
 pylint==3.0.3
-black[d]==24.1.1
+black[d]==24.2.0
