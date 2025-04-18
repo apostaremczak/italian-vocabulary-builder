@@ -1,3 +1,1 @@
-# shellcheck disable=SC2046
-black $(git ls-files '*.py')
-pylint $(git ls-files '*.py')
+uv run pre-commit run --all-files
