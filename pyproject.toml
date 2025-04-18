@@ -1,0 +1,21 @@
+[project]
+name = "italian-vocabulary-builder"
+version = "0.1.0"
+description = "A tool to help build and practice Italian vocabulary."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "beautifulsoup4==4.13.4",
+    "flask[async]==3.1.0",
+    "requests==2.32.3",
+    "reverso-context-api",
+]
+
+[dependency-groups]
+dev = [
+    "black[d]==25.1.0",
+    "pylint==3.3.6",
+]
+
+[tool.uv.sources]
+reverso-context-api = { git = "https://github.com/paulorssalves/reverso_context_api" }

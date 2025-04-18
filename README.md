@@ -78,10 +78,20 @@ the correct pronunciation of searched words.
 
 ## Running the app
 
-### Dev setup
+### Dev environment setup
 
-* Python version: `3.12.1`
-* Flask
+* Python version: `3.13.3`
+* Set up with `uv` (if not already installed,
+  see [uv docs](https://docs.astral.sh/uv/getting-started/installation/)).
+* Run `make install` to install all dependencies. This should create a
+  virtual environment in the `.venv` directory.
+  * If you wish to do development, you can use `make install-dev` to install
+    development dependencies as well.
+* You can reactivate the virtual environment with
+
+```bash
+source .venv/bin/activate
+```
 
 ### Run Flask
 
