@@ -13,9 +13,15 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "black[d]==25.1.0",
-    "pylint==3.3.6",
+    "pre-commit>=4.2.0",
+    "ruff>=0.11.6",
 ]
 
 [tool.uv.sources]
 reverso-context-api = { git = "https://github.com/paulorssalves/reverso_context_api" }
+
+[tool.ruff]
+line-length = 88
+indent-width = 4
+target-version = "py313"
+exclude = [".venv"]
