@@ -15,7 +15,9 @@ class TreccaniResult(ApiResult):
     """Data holder for parsed results from Treccani.it"""
 
     def __init__(self, treccani_pages: list[TreccaniVocabularyPage]):
-        self.definitions = [TreccaniDefinition(page) for page in treccani_pages]
+        self.definitions = [
+            TreccaniDefinition(page) for page in treccani_pages
+        ]
 
     def to_html(self) -> str:
         definitions_html = [

@@ -61,7 +61,7 @@ class TreccaniClient(ApiClient):
         query_matches = result_json["props"]["pageProps"]["data"]["matches"]
         word_def_urls = [
             TreccaniVocabularyPage(
-                title=match["title"], url=f'{self.base_url}{match["url"]}'
+                title=match["title"], url=f"{self.base_url}{match['url']}"
             )
             for match in query_matches
             if word in match["query"]

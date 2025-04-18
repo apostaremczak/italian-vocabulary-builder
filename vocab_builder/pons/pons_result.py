@@ -75,11 +75,15 @@ class PonsApiResult(ApiResult):
 
     def __init__(self, entries: list[dict]):
         self.meanings: list[PonsMeaning] = [
-            meaning for entry in entries for meaning in _parse_single_result(entry)
+            meaning
+            for entry in entries
+            for meaning in _parse_single_result(entry)
         ]
 
     def to_html(self) -> str:
-        meanings_html = "<br>".join([meaning.to_html() for meaning in self.meanings])
+        meanings_html = "<br>".join(
+            [meaning.to_html() for meaning in self.meanings]
+        )
         return meanings_html
 
 
@@ -120,7 +124,9 @@ def _parse_single_result(result: dict) -> list[PonsMeaning]:
                         target=translation["target"],
                     )
                 )
-        meanings.append(PonsMeaning(headword=headword, translations=translations))
+        meanings.append(
+            PonsMeaning(headword=headword, translations=translations)
+        )
     return meanings
 
 
