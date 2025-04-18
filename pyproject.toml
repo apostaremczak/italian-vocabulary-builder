@@ -21,7 +21,7 @@ dev = [
 reverso-context-api = { git = "https://github.com/paulorssalves/reverso_context_api" }
 
 [tool.ruff]
-line-length = 88
+line-length = 79
 indent-width = 4
 target-version = "py313"
 exclude = [".venv"]

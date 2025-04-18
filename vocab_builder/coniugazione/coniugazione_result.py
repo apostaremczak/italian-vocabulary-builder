@@ -65,8 +65,12 @@ class ConiugazioneResult(ApiResult):
 
     def to_html(self) -> str:
         """Convert to HTML to be displayed in the results page"""
-        first_column_html = "\r\n".join([t.to_html() for t in self.first_column])
-        second_column_html = "\r\n".join([t.to_html() for t in self.second_column])
+        first_column_html = "\r\n".join(
+            [t.to_html() for t in self.first_column]
+        )
+        second_column_html = "\r\n".join(
+            [t.to_html() for t in self.second_column]
+        )
         return f"""
         <div class="conjugation-column">{first_column_html}</div>
         <div class="conjugation-column">{second_column_html}</div>
