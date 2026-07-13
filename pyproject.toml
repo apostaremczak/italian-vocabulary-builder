@@ -5,16 +5,16 @@ description = "A tool to help build and practice Italian vocabulary."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "beautifulsoup4==4.13.4",
-    "flask[async]==3.1.1",
-    "requests==2.33.0",
+    "beautifulsoup4==4.15.0",
+    "flask[async]==3.1.3",
+    "requests==2.34.2",
     "reverso-context-api",
 ]
 
 [dependency-groups]
 dev = [
-    "pre-commit>=4.2.0",
-    "ruff>=0.11.6",
+    "pre-commit>=4.6.0",
+    "ruff>=0.15.21",
 ]
 
 [tool.uv.sources]
